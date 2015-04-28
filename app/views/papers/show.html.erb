@@ -1,0 +1,9 @@
+<h1>Show paper</h1>
+
+<%= link_to "Papers index", papers_path, :class => "btn btn-primary" %>
+
+<h2><%= @paper.title %></h2>
+<%= @paper.body %>
+
+<%= link_to "Update paper", edit_paper_path(@paper), class: "btn btn-warning" %>
+<%= link_to "Delete paper", paper_path(@paper), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>

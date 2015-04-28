@@ -1,0 +1,9 @@
+<h1>Papers index</h1>
+
+<%= link_to "Add new paper", new_paper_path, :class => "btn btn-primary" %>
+
+<% @papers.each do |paper| %>
+
+<li><%= link_to paper.title, paper %></li>
+
+<% end %>

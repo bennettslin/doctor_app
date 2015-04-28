@@ -1,0 +1,5 @@
+<%= bootstrap_form_for @paper do |f| %>
+  <%= f.text_field :title, :placeholder => "Paper title" %>
+  <%= f.text_area :body, :placeholder => "Paper body" %>
+  <%= f.primary %>
+<% end %>
