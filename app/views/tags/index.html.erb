@@ -1,0 +1,61 @@
+<h1>Tags index</h1>
+
+<script>
+
+  var words = [];
+  <% @tags.each do |tag| %>
+  var word = {};
+  word.id = <%= tag.id %>
+  word.text = "<%= tag.name %>"
+  word.rawSize = <%= tag.papers.count %>
+  words.push(word);
+  <% end %>
+
+  var max = words.reduce(function(prev, curr) {
+    return prev > curr.rawSize ? prev : curr.rawSize
+  }, 0)
+
+  words.forEach(function(word) {
+    word.size = 15 + (word.rawSize / max) * 35;
+    delete word.rawSize;
+    console.log(word.text, word.size);
+  })
+
+  var fill = d3.scale.category20();
+
+  d3.layout.cloud().size([300, 300])
+      .words(words)
+      .padding(5)
+      .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      .font("Impact")
+      .fontSize(function(tag) { return tag.size; })
+      .on("end", draw)
+      .start();
+
+  function draw(words) {
+    d3.select("body").append("svg")
+        .attr("width", 300)
+        .attr("height", 300)
+      .append("g")
+        .attr("transform", "translate(150,150)")
+      .selectAll("text")
+        .data(words)
+      .enter().append("text")
+        .style("font-size", function(d) { return d.size + "px"; })
+        .style("font-family", "Impact")
+        .style("fill", function(d, i) { return fill(i); })
+        .attr("text-anchor", "middle")
+        .attr("class", "cloud-text")
+        .attr("transform", function(d) {
+          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+        })
+        .on("click", function (word) {
+          window.location.replace("tags/" + word.id)
+        })
+        .text(function(d) { return d.text; });
+  }
+
+</script>
+
+<%= link_to "Add new tag", new_tag_path, class: "btn btn-primary" %>
+

@@ -1,9 +1,30 @@
 <h1>Show paper</h1>
 
-<%= link_to "Papers index", papers_path, :class => "btn btn-primary" %>
+<%= link_to "Papers index", papers_path, class: "btn btn-primary" %>
 
 <h2><%= @paper.title %></h2>
-<%= @paper.body %>
+<div><%= @paper.body %></div>
 
-<%= link_to "Update paper", edit_paper_path(@paper), class: "btn btn-warning" %>
-<%= link_to "Delete paper", paper_path(@paper), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Tags</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @paper.tags.each do |tag| %>
+      <tr>
+        <td><%= link_to tag.name, tag %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<ul class="buttons">
+  <li>
+    <%= link_to "Update paper", edit_paper_path(@paper), class: "btn btn-warning" %>
+  </li>
+  <li>
+    <%= link_to "Delete paper", paper_path(@paper), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
+  </li>
+</ul>

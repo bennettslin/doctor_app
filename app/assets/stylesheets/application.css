@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+ul.buttons li {
+  display: inline;
+}
+
+.cloud-text {
+  cursor: pointer;
+}

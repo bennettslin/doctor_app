@@ -1,0 +1,29 @@
+<h1>Show tag</h1>
+
+<%= link_to "Tags index", tags_path, class: "btn btn-primary" %>
+
+<h2><%= @tag.name %></h2>
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Papers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tag.papers.each do |paper| %>
+      <tr>
+        <td><%= link_to paper.title, paper %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<ul class="buttons">
+  <li>
+    <%= link_to "Update tag", edit_tag_path(@tag), class: "btn btn-warning" %>
+  </li>
+  <li>
+    <%= link_to "Delete tag", tag_path(@tag), class: "btn btn-danger", method: :delete, data: { confirm: "Tag is used by #{@tag.papers.count} papers. Are you sure?" } %>
+  </li>
+</ul>

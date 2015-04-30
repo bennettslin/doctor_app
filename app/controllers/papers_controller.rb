@@ -6,10 +6,17 @@ class PapersController < ApplicationController
 
   def new
     @paper = Paper.new
+    @tags = Tag.all
   end
 
   def create
     @paper = Paper.create(paper_params)
+
+    tags = params[:paper][:tag_ids]
+    tags.each do |tag_id|
+      @paper.tags << Tag.find(tag_id) unless tag_id.blank?
+    end
+
     redirect_to @paper
   end
 
@@ -19,19 +26,27 @@ class PapersController < ApplicationController
 
   def edit
     @paper = Paper.find(params[:id])
+    @tags = Tag.all
   end
 
   def update
-    @paper = Paper.find(params[:id])
-    @paper.update(paper_params)
+    @paper = Paper.update(params[:id], paper_params)
+
+    @paper.tags.clear
+    tags = params[:paper][:tag_ids]
+    tags.each do |tag_id|
+      @paper.tags << Tag.find(tag_id) unless tag_id.blank?
+    end
+
     redirect_to @paper
   end
 
   def destroy
     @paper = Paper.find(params[:id])
     @paper.destroy
-    redirect_to @papers
+    redirect_to papers_path
   end
+
 
   private
 

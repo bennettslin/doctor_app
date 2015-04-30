@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'papers#index'
 
   resources :papers
+  resources :tags
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
