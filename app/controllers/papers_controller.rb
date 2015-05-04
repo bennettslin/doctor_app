@@ -22,6 +22,14 @@ class PapersController < ApplicationController
 
   def show
     @paper = Paper.find(params[:id])
+    search = @paper.title.downcase
+    list = flickr.photos.search :text => search, :sort => "relevance", per_page: 3
+    @pictures = []
+    for picture in list do
+      object = flickr.photos.getSizes photo_id: picture.id
+      index = object.to_a.index {|index| index['label'] == 'Medium 640'}
+      @pictures << object[index] unless object[index].nil?
+    end
   end
 
   def edit

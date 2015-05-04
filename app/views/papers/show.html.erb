@@ -28,3 +28,33 @@
     <%= link_to "Delete paper", paper_path(@paper), class: "btn btn-danger", method: :delete, data: { confirm: "Are you sure?" } %>
   </li>
 </ul>
+
+<!--  Begin Carousel -->
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+  <% for i in 0...@pictures.length do %>
+    <% if i == 0 %>
+    <div class="item active">
+    <% else %>
+    <div class="item">
+    <%end%>
+      <img src="<%=@pictures[i]['source']%>" alt="" class="img-carousel">
+      <div class="carousel-caption">
+
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!-- End Carousel -->
